@@ -50,7 +50,7 @@ pipeline {
         }
         stage('DAST'){
             agent {
-                label 'master'
+                label 'parham'
             }
             steps {
                 unstash 'DockerImage'
