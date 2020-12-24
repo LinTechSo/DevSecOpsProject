@@ -1,6 +1,7 @@
 pipeline {
     agent none
     stages {
+        /*
         stage ('SAST') {
             agent {
                 docker {
@@ -14,7 +15,7 @@ pipeline {
                     sh 'cat target/sonar/report-task.txt'
                 }
             }
-        }
+        } */
         stage('Build Project'){
             agent {
                 label 'parham'
@@ -22,7 +23,7 @@ pipeline {
             steps {
                 sh 'docker build -t parham/myproject:latest .'
             }
-        }
+        } /*
         stage('Run Unit Test on Project'){
             agent {
                 docker {
@@ -35,7 +36,7 @@ pipeline {
                 sh 'cd src && pip install -r requirements.txt'
                 sh 'cd src && python test.py'
             }
-        }
+        } */
         stage('Docker image security Test '){
             agent {
                 label 'parham'
