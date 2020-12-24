@@ -4,7 +4,7 @@ pipeline {
         stage ('SAST') {
             agent {
                 docker {
-                    label 'master'
+                    label 'parham'
                     image 'maven:3-alpine'
                 }
             }
