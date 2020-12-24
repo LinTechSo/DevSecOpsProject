@@ -1,15 +1,6 @@
 pipeline {
     agent none
     stages {
-        /*
-        stage ('Check-Git-Secrets') {
-            agent {label 'master'}
-            steps {
-                sh 'rm trufflehog || true'
-                sh 'docker run gesellix/trufflehog --json https://github.com/LinTechSo/DevSecOpsProject.git > trufflehog'
-                sh 'cat trufflehog'
-            }
-        }*/
         stage ('SAST') {
             agent {
                 docker {
@@ -63,7 +54,7 @@ pipeline {
             }
             steps {
                 echo '> load previous image on docker  ...'
-                sh 'docker load < target/*.tar'
+                sh 'docker load < *.tar'
                 sh 'docker run -itd -p 5050:5050 --name SecTest parham/myproject:latest'
                 sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:5050/ || true'
             }
