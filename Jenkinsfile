@@ -1,6 +1,7 @@
 pipeline {
     agent none
     stages {
+        /*
         stage ('Check-Git-Secrets') {
             agent {label 'master'}
             steps {
@@ -8,7 +9,7 @@ pipeline {
                 sh 'docker run gesellix/trufflehog --json https://github.com/LinTechSo/DevSecOpsProject.git > trufflehog'
                 sh 'cat trufflehog'
             }
-        }
+        }*/
         stage ('SAST') {
             agent {
                 docker {
