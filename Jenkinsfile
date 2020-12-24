@@ -35,7 +35,7 @@ pipeline {
                 sh 'cd src && cp main.py app.py'
                 sh 'cd src && python test.py'
             }
-        }/*
+        }
         stage('Docker image security Test '){
             agent {
                 label 'parham'
@@ -44,7 +44,7 @@ pipeline {
                 sh  'export PHONITO_API_TOKEN="${PHONITO_API_TOKEN}"'
                 sh 'phonito-scanner -i parham/myproject:latest'
             }
-        }*/
+        }
         stage('DAST'){
             agent {
                 label 'parham'
