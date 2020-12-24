@@ -26,7 +26,7 @@ pipeline {
         stage('Run Unit Test on Project'){
             agent {
                 docker {
-                    label 'parham'
+                    label 'master'
                     image 'python:3.7-alpine'
                 }
             }
