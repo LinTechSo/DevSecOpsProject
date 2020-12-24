@@ -1,9 +1,9 @@
-__author__ = 'Khaled Nassar'
+__author__ = 'Parham Zardoshti'
 
 # all the imports
 import sqlite3,time,datetime,cgi,os,subprocess
 from flask import Flask, request, session, g, redirect, url_for, \
-        abort, render_template, flash,make_response
+        abort, render_template, flash,make_response,jsonify
 from contextlib import closing
 from jinja2 import Environment
 # configuration
@@ -57,7 +57,7 @@ def index():
     cur = g.db.execute('select id, title, description, date from entries order by id desc limit 8')
     a = cur.fetchall()
     entries = [dict(id=row[0],title=row[1], description=row[2],d=row[3]) for row in a]
-    print entries
+    print (entries)
     response=make_response(render_template('index.html',entries=entries,Name=name))
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     response.headers['X-Content-Type-Options'] = 'nosniff'
@@ -158,6 +158,13 @@ def login():
 @app.route('/upload')
 def upload():
     return render_template("file_upload_form.html") 
+
+@app.route('/v1/ok')
+def health_check():
+    """ for system health check. calling it will answer with json message: ok """
+    ret = {'message': 'ok'}
+    return jsonify(ret), 200
+
 @app.route('/success',methods=['POST'])
 def success():
     if request.method == 'POST':  
@@ -200,4 +207,4 @@ def command(cmd):
         (out, err) = proc.communicate()
         return out
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=80) #processes=2)
+    app.run(host='0.0.0.0',port=5050) #processes=2)

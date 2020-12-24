@@ -1,0 +1,42 @@
+pipeline {
+    agent none
+    stages {
+        stage('Build Project'){
+            agent {
+                label 'parham'
+            }
+            steps {
+                sh 'docker build -t parham/myproject:latest .'
+            }
+        }
+        stage('Run Unit Test on Project'){
+            agent {
+                docker {
+                    label 'master'
+                    image 'python:3.7-alpine'
+                }
+            }
+            steps {
+                sh 'cp main.py app.py'
+                sh 'pip install -r requirements.txt'
+                sh 'python test.py'
+            }
+            post {
+                always {
+                    junit 'test-reports/*.xml'
+                }
+            }
+        }
+        stage('Deploy Project'){
+            agent {
+                label 'parham'
+            }
+            when {
+                expression {env.GIT_BRANCH == 'origin/master'}
+            }
+            steps {
+                sh 'docker run -itd parham/myproject:latest'
+            }            
+        }
+    }
+}
