@@ -53,8 +53,9 @@ pipeline {
                 label 'master'
             }
             steps {
+                unstash 'DockerImage'
                 echo '> load previous image on docker  ...'
-                sh 'docker load < *.tar'
+                sh 'docker load < target/*.tar'
                 sh 'docker run -itd -p 5050:5050 --name SecTest parham/myproject:latest'
                 sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:5050/ || true'
             }
