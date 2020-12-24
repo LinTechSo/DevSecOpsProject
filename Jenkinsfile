@@ -61,6 +61,9 @@ pipeline {
             when {
                 expression {env.GIT_BRANCH == 'origin/master'}
             }
+            input {
+                message 'Continue to Deploy?'
+            }
             steps {
                 sh 'docker run -itd parham/myproject:latest'
             }            
