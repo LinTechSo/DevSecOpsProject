@@ -20,7 +20,7 @@ pipeline {
                 label 'parham'
             }
             steps {
-                sh 'cd src && docker build -t parham/myproject:latest .'
+                sh 'docker build -t parham/myproject:latest .'
             }
         }
         stage('Run Unit Test on Project'){
