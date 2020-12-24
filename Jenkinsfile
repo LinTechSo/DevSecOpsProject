@@ -26,7 +26,7 @@ pipeline {
         stage('Run Unit Test on Project'){
             agent {
                 docker {
-                    label 'master'
+                    label 'parham'
                     image 'python:3.7-alpine'
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
         }
         stage('DAST'){
             agent {
-                label 'master'
+                label 'parham'
             }
             steps {
                 sh 'cd src && python3 main.py &'
