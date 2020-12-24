@@ -54,7 +54,7 @@ pipeline {
             }
             steps {
                 sh  'export PHONITO_API_TOKEN="${PHONITO_API_TOKEN}"'
-                sh 'phonito-scanner -i parham/myproject:latest'
+                sh 'phonito-scanner -i parham/myproject:latest || true'
             }
         }
         stage('DAST'){
