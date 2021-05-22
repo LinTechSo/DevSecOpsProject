@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Build Project'){
+        stage('Build'){
             agent {
                 label 'parham'
             }
@@ -9,7 +9,7 @@ pipeline {
                 sh 'docker build -t parham/myproject:latest .'
             }
         }
-        stage('Run Unit Test on Project'){
+        stage('Test'){
             agent {
                 docker {
                     label 'master'
@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Project'){
+        stage('Deploy'){
             agent {
                 label 'parham'
             }
