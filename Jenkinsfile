@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Project'){
+        stage('Build'){
             agent {
                 label 'parham'
             }
@@ -26,7 +26,7 @@ pipeline {
                 stash includes: '**/*.tar', name:'DockerImage'
             }
         }
-        stage('Run Unit Test on Project'){
+        stage('Test'){
             agent {
                 docker {
                     label 'master'
@@ -39,7 +39,7 @@ pipeline {
                 sh 'cd src && python test.py'
             }
         }
-        stage('Docker image security Test '){
+        stage('CIST'){
             agent {
                 label 'parham'
             }
@@ -65,7 +65,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Project'){
+        stage('Deploy'){
             agent {
                 label 'parham'
             }
